@@ -23,14 +23,8 @@ const HeroSection = () => {
 
       <div className="section-container relative z-10 text-center">
         <div className="space-y-8">
-          {/* Status badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-primary/30 animate-fade-up">
-            <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-            <span className="text-sm text-muted-foreground">Available for opportunities</span>
-          </div>
-
           {/* Main heading */}
-          <div className="space-y-4 animate-fade-up animation-delay-200">
+          <div className="space-y-4 animate-fade-up">
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight">
               <span className="text-foreground">Hi, I'm </span>
               <span className="gradient-text">Aya Iskandar</span>
@@ -41,15 +35,21 @@ const HeroSection = () => {
           </div>
 
           {/* Description */}
-          <p className="max-w-2xl mx-auto text-lg text-muted-foreground leading-relaxed animate-fade-up animation-delay-400">
+          <p className="max-w-2xl mx-auto text-lg text-muted-foreground leading-relaxed animate-fade-up animation-delay-200">
             Crafting clean architectures, responsive UIs, and scalable backend integrations. 
             Passionate about building efficient, user-friendly apps with Flutter, ASP.NET Core, and Spring Boot.
           </p>
 
-          {/* Location */}
-          <div className="flex items-center justify-center gap-2 text-muted-foreground animate-fade-up animation-delay-600">
-            <MapPin className="w-4 h-4 text-primary" />
-            <span>Beirut, Lebanon</span>
+          {/* Location + Status badge */}
+          <div className="flex flex-col items-center gap-3 animate-fade-up animation-delay-400">
+            <div className="flex items-center gap-2 text-muted-foreground">
+              <MapPin className="w-4 h-4 text-primary" />
+              <span>Beirut, Lebanon</span>
+            </div>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-primary/30">
+              <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+              <span className="text-sm text-muted-foreground">Available for opportunities</span>
+            </div>
           </div>
 
           {/* CTA Buttons */}
