@@ -37,7 +37,7 @@ const HeroSection = () => {
           {/* Description */}
           <p className="max-w-2xl mx-auto text-lg text-muted-foreground leading-relaxed animate-fade-up animation-delay-200">
             Crafting clean architectures, responsive UIs, and scalable backend integrations. 
-            Passionate about building efficient, user-friendly apps with Flutter, ASP.NET Core, and Spring Boot.
+            Passionate about building efficient, user-friendly apps with complete Flutter Apps, and web apps with frontend integrated with ASP.NET Core.
           </p>
 
           {/* Location + Status badge */}
