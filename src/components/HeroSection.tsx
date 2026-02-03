@@ -59,7 +59,7 @@ const HeroSection = () => {
               onClick={scrollToProjects}
               className="group bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-primary-foreground font-semibold px-8 py-6 text-lg rounded-xl glow-pink transition-all duration-300"
             >
-              View My Work
+              Get Started
               <ArrowDown className="ml-2 w-5 h-5 group-hover:translate-y-1 transition-transform" />
             </Button>
             <Button
