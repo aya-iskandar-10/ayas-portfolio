@@ -79,7 +79,7 @@ const HeroSection = () => {
           <div className="pt-12 animate-fade-up animation-delay-1000">
             <p className="text-sm text-muted-foreground mb-4">Tech I work with</p>
             <div className="flex flex-wrap items-center justify-center gap-3">
-              {['Flutter', 'Dart', 'Spring Boot', 'ASP.NET', 'Java', 'MySQL'].map((tech) => (
+              {['Flutter', 'Dart', 'ASP.NET', 'Java', 'MySQL'].map((tech) => (
                 <span key={tech} className="tech-badge">
                   {tech}
                 </span>
