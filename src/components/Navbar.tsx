@@ -60,9 +60,9 @@ const Navbar = () => {
               e.preventDefault();
               scrollToSection('#home');
             }}
-            className="text-2xl font-bold gradient-text hover:opacity-80 transition-opacity"
+            className="text-2xl font-bold gradient-text hover:opacity-80 transition-opacity font-mono"
           >
-            AI
+            &lt;AYA /&gt;
           </a>
 
           {/* Desktop Navigation */}
