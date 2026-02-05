@@ -1,46 +1,71 @@
 import { useInView } from '@/hooks/useInView';
+import { 
+  Code2, 
+  Smartphone, 
+  Server, 
+  Database, 
+  GitBranch, 
+  Layers, 
+  Cpu, 
+  Globe,
+  Braces,
+  FileCode,
+  Box,
+  Workflow,
+  Languages
+} from 'lucide-react';
+
+interface Skill {
+  name: string;
+  icon: React.ReactNode;
+}
 
 interface SkillCategory {
   title: string;
-  skills: { name: string; level: number }[];
+  icon: React.ReactNode;
+  skills: Skill[];
 }
 
 const skillCategories: SkillCategory[] = [
   {
     title: 'Programming Languages',
+    icon: <Code2 className="w-6 h-6" />,
     skills: [
-      { name: 'Dart', level: 95 },
-      { name: 'Java', level: 85 },
-      { name: 'C#', level: 80 },
-      { name: 'JavaScript', level: 75 },
-      { name: 'C++', level: 70 },
+      { name: 'Dart', icon: <Smartphone className="w-5 h-5" /> },
+      { name: 'Java', icon: <FileCode className="w-5 h-5" /> },
+      { name: 'C#', icon: <Braces className="w-5 h-5" /> },
+      { name: 'JavaScript', icon: <Globe className="w-5 h-5" /> },
+      { name: 'C++', icon: <Cpu className="w-5 h-5" /> },
     ],
   },
   {
     title: 'Frameworks & Tools',
+    icon: <Layers className="w-6 h-6" />,
     skills: [
-      { name: 'Flutter', level: 95 },
-      { name: 'ASP.NET Core MVC', level: 80 },
-      { name: 'Spring Boot', level: 75 },
-      { name: 'Git', level: 85 },
-      { name: 'REST APIs', level: 90 },
+      { name: 'Flutter', icon: <Smartphone className="w-5 h-5" /> },
+      { name: 'ASP.NET Core MVC', icon: <Server className="w-5 h-5" /> },
+      { name: 'Spring Boot', icon: <Box className="w-5 h-5" /> },
+      { name: 'Git', icon: <GitBranch className="w-5 h-5" /> },
+      { name: 'REST APIs', icon: <Workflow className="w-5 h-5" /> },
     ],
   },
   {
     title: 'Databases',
+    icon: <Database className="w-6 h-6" />,
     skills: [
-      { name: 'MySQL', level: 85 },
-      { name: 'SQLite', level: 90 },
-      { name: 'Database Design', level: 80 },
+      { name: 'MySQL', icon: <Database className="w-5 h-5" /> },
+      { name: 'SQLite', icon: <Database className="w-5 h-5" /> },
+      { name: 'Database Design', icon: <Layers className="w-5 h-5" /> },
     ],
   },
   {
     title: 'Concepts & Practices',
+    icon: <Workflow className="w-6 h-6" />,
     skills: [
-      { name: 'Clean Architecture', level: 85 },
-      { name: 'OOP', level: 90 },
-      { name: 'Data Structures', level: 85 },
-      { name: 'Problem Solving', level: 90 },
+      { name: 'Clean Architecture', icon: <Box className="w-5 h-5" /> },
+      { name: 'OOP', icon: <Braces className="w-5 h-5" /> },
+      { name: 'Data Structures', icon: <Layers className="w-5 h-5" /> },
+      { name: 'Problem Solving', icon: <Cpu className="w-5 h-5" /> },
     ],
   },
 ];
@@ -60,28 +85,6 @@ const languages = [
   { name: 'Arabic', level: 'Native' },
   { name: 'English', level: 'Fluent' },
 ];
-
-const SkillBar = ({ name, level, delay }: { name: string; level: number; delay: number }) => {
-  const { ref, isInView } = useInView({ threshold: 0.5 });
-
-  return (
-    <div ref={ref} className="space-y-2">
-      <div className="flex justify-between items-center">
-        <span className="text-sm font-medium text-foreground">{name}</span>
-        <span className="text-xs text-muted-foreground">{level}%</span>
-      </div>
-      <div className="h-2 bg-muted rounded-full overflow-hidden">
-        <div
-          className="h-full bg-gradient-to-r from-primary via-secondary to-accent rounded-full transition-all duration-1000 ease-out"
-          style={{
-            width: isInView ? `${level}%` : '0%',
-            transitionDelay: `${delay}ms`,
-          }}
-        />
-      </div>
-    </div>
-  );
-};
 
 const SkillsSection = () => {
   const { ref, isInView } = useInView({ threshold: 0.1 });
@@ -110,7 +113,7 @@ const SkillsSection = () => {
           </div>
 
           {/* Skills grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
             {skillCategories.map((category, categoryIndex) => (
               <div
                 key={category.title}
@@ -119,15 +122,30 @@ const SkillsSection = () => {
                 }`}
                 style={{ transitionDelay: `${categoryIndex * 100}ms` }}
               >
-                <h4 className="text-lg font-semibold text-foreground mb-6">{category.title}</h4>
-                <div className="space-y-4">
+                {/* Category Header */}
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="p-2 rounded-lg bg-primary/10 text-primary">
+                    {category.icon}
+                  </div>
+                  <h4 className="text-lg font-semibold text-foreground">{category.title}</h4>
+                </div>
+                
+                {/* Skills with icons */}
+                <div className="flex flex-wrap gap-3">
                   {category.skills.map((skill, skillIndex) => (
-                    <SkillBar
+                    <div
                       key={skill.name}
-                      name={skill.name}
-                      level={skill.level}
-                      delay={categoryIndex * 100 + skillIndex * 50}
-                    />
+                      className={`flex items-center gap-2 px-4 py-2 rounded-full bg-muted/50 border border-border/50 
+                        transition-all duration-300 hover:border-primary/50 hover:bg-primary/10 group ${
+                        isInView ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
+                      }`}
+                      style={{ transitionDelay: `${categoryIndex * 100 + skillIndex * 50}ms` }}
+                    >
+                      <span className="text-muted-foreground group-hover:text-primary transition-colors">
+                        {skill.icon}
+                      </span>
+                      <span className="text-sm font-medium text-foreground">{skill.name}</span>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -136,9 +154,14 @@ const SkillsSection = () => {
 
           {/* Backend capabilities */}
           <div className="mb-16">
-            <h4 className="text-2xl font-bold text-foreground text-center mb-8">
-              Backend Capabilities
-            </h4>
+            <div className="flex items-center justify-center gap-3 mb-8">
+              <div className="p-2 rounded-lg bg-primary/10 text-primary">
+                <Server className="w-6 h-6" />
+              </div>
+              <h4 className="text-2xl font-bold text-foreground">
+                Backend Capabilities
+              </h4>
+            </div>
             <div className="flex flex-wrap justify-center gap-3">
               {backendCapabilities.map((capability, index) => (
                 <span
@@ -156,9 +179,14 @@ const SkillsSection = () => {
 
           {/* Languages */}
           <div>
-            <h4 className="text-2xl font-bold text-foreground text-center mb-8">
-              Languages
-            </h4>
+            <div className="flex items-center justify-center gap-3 mb-8">
+              <div className="p-2 rounded-lg bg-primary/10 text-primary">
+                <Languages className="w-6 h-6" />
+              </div>
+              <h4 className="text-2xl font-bold text-foreground">
+                Languages
+              </h4>
+            </div>
             <div className="flex justify-center gap-6">
               {languages.map((lang, index) => (
                 <div
