@@ -27,7 +27,7 @@ const HeroSection = () => {
           <div className="space-y-4 animate-fade-up">
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight">
               <span className="text-foreground">Hi, I'm </span>
-              <span className="gradient-text font-mono">&lt;AYA /&gt;</span>
+              <span className="gradient-text">Aya Iskandar</span>
             </h1>
             <p className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-muted-foreground">
               Mobile & Web Developer
