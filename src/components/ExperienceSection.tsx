@@ -3,6 +3,19 @@ import { useInView } from '@/hooks/useInView';
 
 const experiences = [
   {
+    title: 'Full-Stack Developer',
+    company: 'EKTIDAR',
+    period: 'Present',
+    status: 'In Progress',
+    responsibilities: [
+      'Maintaining and enhancing a university platform built with Angular (TypeScript) frontend and Java backend',
+      'Fixing bugs, testing features, and writing clean, maintainable code',
+      'Building additional features for student support sessions, instructor management, and activity scheduling',
+      'Supporting platform modules including classes, activities, and session management for university students',
+      'Collaborating on ideas to improve user experience and platform functionality',
+    ],
+  },
+  {
     title: 'Mobile Developer Intern',
     company: 'Auvia Group – Office',
     period: 'Sep 2025 – Dec 2025',
