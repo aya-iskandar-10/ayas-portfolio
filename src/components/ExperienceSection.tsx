@@ -5,7 +5,7 @@ const experiences = [
   {
     title: 'Full-Stack Developer',
     company: 'EKTIDAR',
-    period: 'Present',
+    period: 'Jan 2026 – Present',
     status: 'In Progress',
     responsibilities: [
       'Maintaining and enhancing a university platform built with Angular (TypeScript) frontend and Java backend',
@@ -17,7 +17,7 @@ const experiences = [
   },
   {
     title: 'Mobile Developer Intern',
-    company: 'Auvia Group – Office',
+    company: 'Auvia Company – Office',
     period: 'Sep 2025 – Dec 2025',
     status: 'Done',
     responsibilities: [
