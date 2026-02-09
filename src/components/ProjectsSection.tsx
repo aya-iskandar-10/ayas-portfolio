@@ -90,17 +90,6 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
         </div>
       )}
 
-      {/* Video demo placeholder */}
-      <div className="relative aspect-video bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 flex items-center justify-center group-hover:from-primary/20 group-hover:via-secondary/20 group-hover:to-accent/20 transition-all duration-500">
-        <div className="text-center">
-          <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-300">
-            <Play className="w-6 h-6 text-primary ml-1" />
-          </div>
-          <p className="text-sm text-muted-foreground">Video Demo Coming Soon</p>
-        </div>
-        {/* Hover overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-      </div>
 
       {/* Content */}
       <div className="p-6 space-y-4">
