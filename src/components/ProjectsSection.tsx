@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Play, Github, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useInView } from '@/hooks/useInView';
@@ -41,6 +42,7 @@ const projects: Project[] = [
       'Clean UI/UX design',
     ],
     technologies: ['Flutter', 'Dart', 'SQLite', 'Speech-to-Text'],
+    videoUrl: voicevideo,
   },
   {
     title: 'Face Recognition App',
@@ -65,6 +67,7 @@ const projects: Project[] = [
     ],
     technologies: ['Flutter', 'Firebase', 'Dart'],
     videoUrl: edtechdemo,
+    githubUrl: 'https://github.com/aya-iskandar-10/Edtechsyndicatemanagementsystem.git',
   },
   {
     title: 'E-commerce Website',
@@ -76,10 +79,19 @@ const projects: Project[] = [
       'Admin dashboard',
     ],
     technologies: ['ASP.NET Core MVC', 'C#', 'SQL Server', 'Bootstrap'],
+    videoUrl: ecommercevideo,
   },
 ];
 
-const ProjectCard = ({ project, index }: { project: Project; index: number }) => {
+const ProjectCard = ({
+  project,
+  index,
+  onVideoOpen,
+}: {
+  project: Project;
+  index: number;
+  onVideoOpen: (url: string) => void;
+}) => {
   const { ref, isInView } = useInView({ threshold: 0.1 });
 
   return (
@@ -129,13 +141,16 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
         </div>
 
         {/* Action buttons */}
-        {project.videoUrl && (
-            <video
-              src={project.videoUrl}
-              controls
-              className="w-full rounded-xl mt-4 border border-border/50"
-            />
-          )}
+       {project.videoUrl && (
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => onVideoOpen(project.videoUrl!)}
+          >
+            <Play className="w-4 h-4 mr-2" />
+            View Demo
+          </Button>
+        )}
         <div className="flex items-center gap-3 pt-4">
           {project.githubUrl && (
             <Button variant="outline" size="sm" className="border-primary/30 hover:bg-primary/10" asChild>
@@ -162,6 +177,12 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
 const ProjectsSection = () => {
   const { ref, isInView } = useInView({ threshold: 0.05 });
 
+  const [videoOpen, setVideoOpen] = useState(false);
+const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
+const handleVideoOpen = (url: string) => {
+  setSelectedVideo(url);
+  setVideoOpen(true);
+};
   return (
     <section id="projects" className="py-24 relative">
       {/* Background decoration */}
@@ -191,7 +212,12 @@ const ProjectsSection = () => {
           {/* Projects grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {projects.map((project, index) => (
-              <ProjectCard key={project.title} project={project} index={index} />
+              <ProjectCard
+                key={project.title}
+                project={project}
+                index={index}
+                onVideoOpen={handleVideoOpen}
+              />
             ))}
           </div>
         </div>
