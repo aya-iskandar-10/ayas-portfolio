@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Briefcase, Calendar, CheckCircle2, Award, Users, ExternalLink } from 'lucide-react';
+import certificateImage from '@/assets/images/aya-certificate.jpeg';
+
 // To use your certificate, place your PNG in src/assets/ and update the import below:
 // import certificateImage from '@/assets/auvia-certificate.png';
 
@@ -190,16 +192,11 @@ const ExperienceSection = () => {
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
-            <p className="text-sm text-muted-foreground text-center">
-              Certificate image not yet added. Place your certificate PNG in <code className="text-primary">src/assets/auvia-certificate.png</code> and uncomment the import at the top of ExperienceSection.tsx.
-            </p>
-            {/* Once you add the image, replace the paragraph above with:
-            <img 
+           <img 
               src={certificateImage} 
               alt="Auvia Internship Certificate" 
               className="w-full rounded-xl border border-border/50 shadow-lg"
             />
-            */}
           </div>
         </DialogContent>
       </Dialog>
