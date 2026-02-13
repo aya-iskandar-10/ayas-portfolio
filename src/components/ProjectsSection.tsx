@@ -1,9 +1,8 @@
-import { useState } from 'react';
 import { Play, Github, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useInView } from '@/hooks/useInView';
 import facevideo from '@/assets/videos/face-recognition-demo.mp4';
-//import ecommercevideo from '@/assets/videos/ecommerce-demo.mp4';
+import ecommercevideo from '@/assets/videos/ecommerce-demo.mp4';
 import voicevideo from '@/assets/videos/audio-recording-demo.mp4';
 import edtechdemo from '@/assets/videos/edtech-demo.mp4';
 
@@ -42,7 +41,6 @@ const projects: Project[] = [
       'Clean UI/UX design',
     ],
     technologies: ['Flutter', 'Dart', 'SQLite', 'Speech-to-Text'],
-    videoUrl: voicevideo,
   },
   {
     title: 'Face Recognition App',
@@ -66,8 +64,7 @@ const projects: Project[] = [
       'Clean interface design',
     ],
     technologies: ['Flutter', 'Firebase', 'Dart'],
-    videoUrl: edtechdemo,
-    githubUrl: 'https://github.com/aya-iskandar-10/Edtechsyndicatemanagementsystem.git',
+    
   },
   {
     title: 'E-commerce Website',
@@ -79,19 +76,10 @@ const projects: Project[] = [
       'Admin dashboard',
     ],
     technologies: ['ASP.NET Core MVC', 'C#', 'SQL Server', 'Bootstrap'],
-   // videoUrl: ecommercevideo,
   },
 ];
 
-const ProjectCard = ({
-  project,
-  index,
-  onVideoOpen,
-}: {
-  project: Project;
-  index: number;
-  onVideoOpen: (url: string) => void;
-}) => {
+const ProjectCard = ({ project, index }: { project: Project; index: number }) => {
   const { ref, isInView } = useInView({ threshold: 0.1 });
 
   return (
@@ -141,16 +129,13 @@ const ProjectCard = ({
         </div>
 
         {/* Action buttons */}
-       {project.videoUrl && (
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => onVideoOpen(project.videoUrl!)}
-          >
-            <Play className="w-4 h-4 mr-2" />
-            View Demo
-          </Button>
-        )}
+        {project.videoUrl && (
+            <video
+              src={project.videoUrl}
+              controls
+              className="w-full rounded-xl mt-4 border border-border/50"
+            />
+          )}
         <div className="flex items-center gap-3 pt-4">
           {project.githubUrl && (
             <Button variant="outline" size="sm" className="border-primary/30 hover:bg-primary/10" asChild>
@@ -177,12 +162,6 @@ const ProjectCard = ({
 const ProjectsSection = () => {
   const { ref, isInView } = useInView({ threshold: 0.05 });
 
-  const [videoOpen, setVideoOpen] = useState(false);
-const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
-const handleVideoOpen = (url: string) => {
-  setSelectedVideo(url);
-  setVideoOpen(true);
-};
   return (
     <section id="projects" className="py-24 relative">
       {/* Background decoration */}
@@ -212,12 +191,7 @@ const handleVideoOpen = (url: string) => {
           {/* Projects grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {projects.map((project, index) => (
-              <ProjectCard
-                key={project.title}
-                project={project}
-                index={index}
-                onVideoOpen={handleVideoOpen}
-              />
+              <ProjectCard key={project.title} project={project} index={index} />
             ))}
           </div>
         </div>
