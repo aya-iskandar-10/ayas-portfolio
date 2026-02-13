@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import { Briefcase, Calendar, CheckCircle2, Award, Users, ExternalLink } from 'lucide-react';
+// To use your certificate, place your PNG in src/assets/ and update the import below:
+// import certificateImage from '@/assets/auvia-certificate.png';
+
 import { useInView } from '@/hooks/useInView';
 import {
   Dialog,
@@ -187,21 +190,16 @@ const ExperienceSection = () => {
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
-            <div className="p-6 rounded-xl bg-gradient-to-br from-primary/5 to-secondary/5 border border-border/50 text-center space-y-3">
-              <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                <Award className="w-8 h-8 text-primary-foreground" />
-              </div>
-              <h3 className="text-xl font-bold text-foreground">Certificate of Completion</h3>
-              <p className="text-muted-foreground text-sm">
-                This certifies that <span className="text-foreground font-semibold">Aya Iskandar</span> has 
-                successfully completed the Mobile Developer Internship program at Auvia Company.
-              </p>
-              <div className="text-sm text-muted-foreground space-y-1">
-                <p><span className="font-medium text-foreground">Duration:</span> Sep 2025 – Dec 2025</p>
-                <p><span className="font-medium text-foreground">Role:</span> Mobile Developer Intern</p>
-                <p><span className="font-medium text-foreground">Focus:</span> Flutter, Firebase, ML-kit, UI/UX</p>
-              </div>
-            </div>
+            <p className="text-sm text-muted-foreground text-center">
+              Certificate image not yet added. Place your certificate PNG in <code className="text-primary">src/assets/auvia-certificate.png</code> and uncomment the import at the top of ExperienceSection.tsx.
+            </p>
+            {/* Once you add the image, replace the paragraph above with:
+            <img 
+              src={certificateImage} 
+              alt="Auvia Internship Certificate" 
+              className="w-full rounded-xl border border-border/50 shadow-lg"
+            />
+            */}
           </div>
         </DialogContent>
       </Dialog>
