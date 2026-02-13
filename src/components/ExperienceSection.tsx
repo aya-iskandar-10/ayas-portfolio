@@ -1,5 +1,14 @@
-import { Briefcase, Calendar, CheckCircle2 } from 'lucide-react';
+import { useState } from 'react';
+import { Briefcase, Calendar, CheckCircle2, Award, Users, ExternalLink } from 'lucide-react';
 import { useInView } from '@/hooks/useInView';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
 
 const experiences = [
   {
@@ -7,6 +16,8 @@ const experiences = [
     company: 'EKTIDAR',
     period: 'Jan 2026 – Present',
     status: 'In Progress',
+    type: 'Freelance',
+    teamNote: 'Collaborating with a professional development team on a freelance basis',
     responsibilities: [
       'Maintaining and enhancing a university platform built with Angular (TypeScript) frontend and Java backend',
       'Fixing bugs, testing features, and writing clean, maintainable code',
@@ -20,6 +31,8 @@ const experiences = [
     company: 'Auvia Company – Office',
     period: 'Sep 2025 – Dec 2025',
     status: 'Done',
+    type: 'Internship',
+    hasCertificate: true,
     responsibilities: [
       'Built a full-featured Flutter app for audio recording, transcription (STT in Arabic), and local data management',
       'Developed face recognition app using ML-kit with live camera tracking of facial expressions and gestures',
@@ -46,12 +59,13 @@ const additionalExperience = [
 
 const ExperienceSection = () => {
   const { ref, isInView } = useInView({ threshold: 0.1 });
+  const [certificateOpen, setCertificateOpen] = useState(false);
 
   return (
-    <section id="experience" className="py-24 relative">
+    <section id="experience" className="py-16 sm:py-24 relative">
       {/* Background decoration */}
       <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-primary/5 to-transparent" />
-      
+
       <div className="section-container relative">
         <div
           ref={ref}
@@ -60,11 +74,11 @@ const ExperienceSection = () => {
           }`}
         >
           {/* Section header */}
-          <div className="text-center mb-16">
+          <div className="text-center mb-12 sm:mb-16">
             <h2 className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">
               Experience
             </h2>
-            <h3 className="text-4xl sm:text-5xl font-bold gradient-text">
+            <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold gradient-text">
               Work History
             </h3>
           </div>
@@ -74,23 +88,23 @@ const ExperienceSection = () => {
             {experiences.map((exp, index) => (
               <div
                 key={exp.title}
-                className={`glass rounded-2xl p-8 border border-border/50 mb-8 transition-all duration-700 ${
+                className={`glass rounded-2xl p-5 sm:p-8 border border-border/50 mb-6 sm:mb-8 transition-all duration-700 ${
                   isInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
                 }`}
                 style={{ transitionDelay: `${index * 200}ms` }}
               >
                 {/* Header */}
-                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shrink-0">
-                      <Briefcase className="w-6 h-6 text-primary-foreground" />
+                <div className="flex flex-col gap-4 mb-6">
+                  <div className="flex items-start gap-3 sm:gap-4">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shrink-0">
+                      <Briefcase className="w-5 h-5 sm:w-6 sm:h-6 text-primary-foreground" />
                     </div>
-                    <div>
-                      <h4 className="text-xl font-semibold text-foreground">{exp.title}</h4>
+                    <div className="flex-1 min-w-0">
+                      <h4 className="text-lg sm:text-xl font-semibold text-foreground">{exp.title}</h4>
                       <p className="text-primary font-medium">{exp.company}</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3 text-sm">
+                  <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-sm">
                     <div className="flex items-center gap-2 text-muted-foreground">
                       <Calendar className="w-4 h-4" />
                       <span>{exp.period}</span>
@@ -98,24 +112,51 @@ const ExperienceSection = () => {
                     <span className="px-3 py-1 rounded-full bg-accent/20 text-accent text-xs font-medium">
                       {exp.status}
                     </span>
+                    <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">
+                      {exp.type}
+                    </span>
                   </div>
                 </div>
 
+                {/* Team collaboration note for EKTIDAR */}
+                {exp.teamNote && (
+                  <div className="flex items-center gap-2 mb-5 p-3 rounded-lg bg-primary/5 border border-primary/20">
+                    <Users className="w-4 h-4 text-primary shrink-0" />
+                    <span className="text-sm text-muted-foreground">{exp.teamNote}</span>
+                  </div>
+                )}
+
                 {/* Responsibilities */}
-                <ul className="space-y-3">
+                <ul className="space-y-2 sm:space-y-3">
                   {exp.responsibilities.map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 text-muted-foreground">
-                      <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                      <span className="text-sm leading-relaxed">{item}</span>
+                    <li key={i} className="flex items-start gap-2 sm:gap-3 text-muted-foreground">
+                      <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-primary shrink-0 mt-0.5" />
+                      <span className="text-xs sm:text-sm leading-relaxed">{item}</span>
                     </li>
                   ))}
                 </ul>
+
+                {/* Certificate button for Auvia */}
+                {exp.hasCertificate && (
+                  <div className="mt-6 pt-4 border-t border-border/50">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setCertificateOpen(true)}
+                      className="border-primary/30 hover:bg-primary/10 hover:border-primary"
+                    >
+                      <Award className="w-4 h-4 mr-2" />
+                      View Internship Certificate
+                      <ExternalLink className="w-3 h-3 ml-2" />
+                    </Button>
+                  </div>
+                )}
               </div>
             ))}
 
             {/* Additional experience */}
-            <h4 className="text-xl font-semibold text-foreground mb-6 mt-12">Additional Experience</h4>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <h4 className="text-lg sm:text-xl font-semibold text-foreground mb-4 sm:mb-6 mt-8 sm:mt-12">Additional Experience</h4>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               {additionalExperience.map((item, index) => (
                 <div
                   key={item.title}
@@ -124,14 +165,46 @@ const ExperienceSection = () => {
                   }`}
                   style={{ transitionDelay: `${(index + 1) * 200}ms` }}
                 >
-                  <h5 className="text-lg font-semibold text-foreground mb-2">{item.title}</h5>
-                  <p className="text-muted-foreground text-sm">{item.description}</p>
+                  <h5 className="text-base sm:text-lg font-semibold text-foreground mb-2">{item.title}</h5>
+                  <p className="text-muted-foreground text-xs sm:text-sm">{item.description}</p>
                 </div>
               ))}
             </div>
           </div>
         </div>
       </div>
+
+      {/* Certificate Dialog */}
+      <Dialog open={certificateOpen} onOpenChange={setCertificateOpen}>
+        <DialogContent className="sm:max-w-lg">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Award className="w-5 h-5 text-primary" />
+              Internship Certificate
+            </DialogTitle>
+            <DialogDescription>
+              Auvia Company – Mobile Developer Intern
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div className="p-6 rounded-xl bg-gradient-to-br from-primary/5 to-secondary/5 border border-border/50 text-center space-y-3">
+              <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
+                <Award className="w-8 h-8 text-primary-foreground" />
+              </div>
+              <h3 className="text-xl font-bold text-foreground">Certificate of Completion</h3>
+              <p className="text-muted-foreground text-sm">
+                This certifies that <span className="text-foreground font-semibold">Aya Iskandar</span> has 
+                successfully completed the Mobile Developer Internship program at Auvia Company.
+              </p>
+              <div className="text-sm text-muted-foreground space-y-1">
+                <p><span className="font-medium text-foreground">Duration:</span> Sep 2025 – Dec 2025</p>
+                <p><span className="font-medium text-foreground">Role:</span> Mobile Developer Intern</p>
+                <p><span className="font-medium text-foreground">Focus:</span> Flutter, Firebase, ML-kit, UI/UX</p>
+              </div>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };

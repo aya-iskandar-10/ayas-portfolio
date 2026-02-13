@@ -10,7 +10,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 sm:pt-20">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-blob" />
@@ -19,17 +19,17 @@ const HeroSection = () => {
       </div>
 
       {/* Grid pattern overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px]" />
+      <div className="absolute inset-0 bg-[linear-gradient(hsl(var(--foreground)/0.02)_1px,transparent_1px),linear-gradient(90deg,hsl(var(--foreground)/0.02)_1px,transparent_1px)] bg-[size:64px_64px]" />
 
       <div className="section-container relative z-10 text-center">
         <div className="space-y-8">
           {/* Main heading */}
           <div className="space-y-4 animate-fade-up">
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight">
+            <h1 className="text-3xl sm:text-5xl lg:text-7xl font-bold tracking-tight">
               <span className="text-foreground">Hi, I'm </span>
               <span className="gradient-text">Aya Iskandar</span>
             </h1>
-            <p className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-muted-foreground">
+            <p className="text-xl sm:text-2xl lg:text-4xl font-semibold text-muted-foreground">
               Mobile & Web Developer
             </p>
           </div>
