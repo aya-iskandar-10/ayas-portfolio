@@ -1,14 +1,6 @@
-import { useState } from 'react';
 import { Play, Github, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useInView } from '@/hooks/useInView';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
-
 import facevideo from '@/assets/videos/face-recognition-demo.mp4';
 import ecommercevideo from '@/assets/videos/ecommerce-demo.mp4';
 import voicevideo from '@/assets/videos/audio-recording-demo.mp4';
@@ -26,63 +18,9 @@ interface Project {
 }
 
 const projects: Project[] = [
- {
-    title: 'EdTech Syndicate App',
-    description:
-      'Educational technology app with membership management and card generation features.',
-    features: [
-      'Form-based membership application',
-      'Membership card generation',
-      'User management',
-      'Clean interface design',
-    ],
-    technologies: ['Flutter', 'Firebase', 'Dart'],
-    videoUrl: edtechdemo,
-  },
   {
-    title: 'Audio Recording & Transcription App',
-    description:
-      'Flutter application for audio recording with Arabic speech-to-text transcription and local data management.',
-    features: [
-      'Audio recording functionality',
-      'Arabic STT transcription',
-      'Local data management with SQLite',
-      'Clean UI/UX design',
-    ],
-    technologies: ['Flutter', 'Dart', 'SQLite', 'Speech-to-Text'],
-    videoUrl: voicevideo,
-  },
-  {
-    title: 'Face Recognition App',
-    description:
-      'Mobile app using ML-kit for real-time face recognition and expression tracking.',
-    features: [
-      'Live camera face tracking',
-      'Facial expression detection',
-      'Gesture recognition',
-      'ML-kit integration',
-    ],
-    technologies: ['Flutter', 'ML-kit', 'Dart', 'Camera API'],
-    videoUrl: facevideo,
-  },
- 
-  {
-    title: 'E-commerce Website',
-    description:
-      'Full-featured e-commerce website built with ASP.NET Core MVC.',
-    features: [
-      'Product catalog management',
-      'Shopping cart functionality',
-      'User authentication',
-      'Admin dashboard',
-    ],
-    technologies: ['ASP.NET Core MVC', 'C#', 'SQL Server', 'Bootstrap'],
-    videoUrl: ecommercevideo,
-  },
-    {
     title: 'School Bus Tracking System',
-    description:
-      'Capstone project featuring a comprehensive school bus tracking solution with real-time GPS tracking, secure check-in/out, and emergency features.',
+    description: 'Capstone project featuring a comprehensive school bus tracking solution with real-time GPS tracking, secure check-in/out, and emergency features.',
     features: [
       'Real-time GPS tracking using OSM Maps',
       'Parent and driver interfaces',
@@ -93,17 +31,55 @@ const projects: Project[] = [
     technologies: ['Flutter', 'Spring Boot', 'MySQL', 'REST API', 'OSM Maps'],
     isFeatured: true,
   },
+  {
+    title: 'Audio Recording & Transcription App',
+    description: 'Flutter application for audio recording with Arabic speech-to-text transcription and local data management.',
+    features: [
+      'Audio recording functionality',
+      'Arabic STT transcription',
+      'Local data management with SQLite',
+      'Clean UI/UX design',
+    ],
+    technologies: ['Flutter', 'Dart', 'SQLite', 'Speech-to-Text'],
+  },
+  {
+    title: 'Face Recognition App',
+    description: 'Mobile app using ML-kit for real-time face recognition and expression tracking.',
+    features: [
+      'Live camera face tracking',
+      'Facial expression detection',
+      'Gesture recognition',
+      'ML-kit integration',
+    ],
+    technologies: ['Flutter', 'ML-kit', 'Dart', 'Camera API'],
+    videoUrl: facevideo,
+  },
+  {
+    title: 'EdTech Syndicate App',
+    description: 'Educational technology app with membership management and card generation features.',
+    features: [
+      'Form-based membership application',
+      'Membership card generation',
+      'User management',
+      'Clean interface design',
+    ],
+    technologies: ['Flutter', 'Firebase', 'Dart'],
+    videoUrl: edtechdemo,
+  },
+  {
+    title: 'E-commerce Website',
+    description: 'Full-featured e-commerce website built with ASP.NET Core MVC.',
+    features: [
+      'Product catalog management',
+      'Shopping cart functionality',
+      'User authentication',
+      'Admin dashboard',
+    ],
+    technologies: ['ASP.NET Core MVC', 'C#', 'SQL Server', 'Bootstrap'],
+  },
 ];
 
-const ProjectCard = ({
-  project,
-  index,
-  onVideoOpen,
-}: {
-  project: Project;
-  index: number;
-  onVideoOpen: (url: string) => void;
-}) => {
+const ProjectCard = ({ project, index }: { project: Project; index: number }) => {
   const { ref, isInView } = useInView({ threshold: 0.1 });
 
   return (
@@ -120,31 +96,29 @@ const ProjectCard = ({
         </div>
       )}
 
+
+      {/* Content */}
       <div className="p-6 space-y-4">
         <h4 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
           {project.title}
         </h4>
-
         <p className="text-muted-foreground text-sm leading-relaxed">
           {project.description}
         </p>
 
+        {/* Features */}
         <ul className="space-y-2">
           {project.features.slice(0, 3).map((feature, i) => (
-            <li
-              key={i}
-              className="text-sm text-muted-foreground flex items-start gap-2"
-            >
+            <li key={i} className="text-sm text-muted-foreground flex items-start gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
               {feature}
             </li>
           ))}
         </ul>
 
+        {/* Technologies */}
         <div className="pt-4 border-t border-border/50">
-          <p className="text-xs text-muted-foreground mb-3">
-            Technologies Used
-          </p>
+          <p className="text-xs text-muted-foreground mb-3">Technologies Used</p>
           <div className="flex flex-wrap gap-2">
             {project.technologies.map((tech) => (
               <span key={tech} className="tech-badge">
@@ -154,49 +128,26 @@ const ProjectCard = ({
           </div>
         </div>
 
-        <div className="flex items-center gap-3 pt-4 flex-wrap">
-          {project.videoUrl && (
-            <Button
-              variant="outline"
-              size="sm"
-              className="border-primary/30 hover:bg-primary/10"
-              onClick={() => onVideoOpen(project.videoUrl!)}
-            >
-              <Play className="w-4 h-4 mr-2" />
-              View Demo
-            </Button>
+        {/* Action buttons */}
+        {project.videoUrl && (
+            <video
+              src={project.videoUrl}
+              controls
+              className="w-full rounded-xl mt-4 border border-border/50"
+            />
           )}
-
+        <div className="flex items-center gap-3 pt-4">
           {project.githubUrl && (
-            <Button
-              variant="outline"
-              size="sm"
-              className="border-primary/30 hover:bg-primary/10"
-              asChild
-            >
-              <a
-                href={project.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+            <Button variant="outline" size="sm" className="border-primary/30 hover:bg-primary/10" asChild>
+              <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
                 <Github className="w-4 h-4 mr-2" />
                 Code
               </a>
             </Button>
           )}
-
           {project.liveUrl && (
-            <Button
-              variant="outline"
-              size="sm"
-              className="border-primary/30 hover:bg-primary/10"
-              asChild
-            >
-              <a
-                href={project.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+            <Button variant="outline" size="sm" className="border-primary/30 hover:bg-primary/10" asChild>
+              <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
                 <ExternalLink className="w-4 h-4 mr-2" />
                 Live Demo
               </a>
@@ -211,16 +162,9 @@ const ProjectCard = ({
 const ProjectsSection = () => {
   const { ref, isInView } = useInView({ threshold: 0.05 });
 
-  const [videoOpen, setVideoOpen] = useState(false);
-  const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
-
-  const handleVideoOpen = (url: string) => {
-    setSelectedVideo(url);
-    setVideoOpen(true);
-  };
-
   return (
     <section id="projects" className="py-24 relative">
+      {/* Background decoration */}
       <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-gradient-to-tr from-secondary/5 to-transparent" />
 
       <div className="section-container relative">
@@ -230,6 +174,7 @@ const ProjectsSection = () => {
             isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
+          {/* Section header */}
           <div className="text-center mb-16">
             <h2 className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">
               Portfolio
@@ -238,41 +183,19 @@ const ProjectsSection = () => {
               Featured Projects
             </h3>
             <p className="max-w-2xl mx-auto text-muted-foreground">
-              A collection of projects showcasing my skills in mobile and web
-              development.
+              A collection of projects showcasing my skills in mobile and web development, 
+              from real-time tracking systems to ML-powered applications.
             </p>
           </div>
 
+          {/* Projects grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {projects.map((project, index) => (
-              <ProjectCard
-                key={project.title}
-                project={project}
-                index={index}
-                onVideoOpen={handleVideoOpen}
-              />
+              <ProjectCard key={project.title} project={project} index={index} />
             ))}
           </div>
         </div>
       </div>
-
-      {/* Video Dialog */}
-      <Dialog open={videoOpen} onOpenChange={setVideoOpen}>
-        <DialogContent className="sm:max-w-3xl">
-          <DialogHeader>
-            <DialogTitle>Project Demo</DialogTitle>
-          </DialogHeader>
-
-          {selectedVideo && (
-            <video
-              src={selectedVideo}
-              controls
-              autoPlay
-              className="w-full rounded-xl border border-border/50"
-            />
-          )}
-        </DialogContent>
-      </Dialog>
     </section>
   );
 };
