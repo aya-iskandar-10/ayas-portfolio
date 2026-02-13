@@ -1,6 +1,7 @@
 import { Play, Github, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useInView } from '@/hooks/useInView';
+import facevideo from '@/assets/videos/face-recognition-demo.mp4';
 
 interface Project {
   title: string;
@@ -48,6 +49,7 @@ const projects: Project[] = [
       'ML-kit integration',
     ],
     technologies: ['Flutter', 'ML-kit', 'Dart', 'Camera API'],
+    videoUrl: facevideo,
   },
   {
     title: 'EdTech Syndicate App',
@@ -123,6 +125,13 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
         </div>
 
         {/* Action buttons */}
+        {project.videoUrl && (
+            <video
+              src={project.videoUrl}
+              controls
+              className="w-full rounded-xl mt-4 border border-border/50"
+            />
+          )}
         <div className="flex items-center gap-3 pt-4">
           {project.githubUrl && (
             <Button variant="outline" size="sm" className="border-primary/30 hover:bg-primary/10" asChild>
