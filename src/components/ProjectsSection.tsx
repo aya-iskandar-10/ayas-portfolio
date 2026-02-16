@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { Play, Github, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useInView } from '@/hooks/useInView';
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import facevideo from '@/assets/videos/face-recognition-demo.mp4';
 import ecommercevideo from '@/assets/videos/ecommerce-demo.mp4';
 import voicevideo from '@/assets/videos/audio-recording-demo.mp4';
@@ -79,7 +81,7 @@ const projects: Project[] = [
   },
 ];
 
-const ProjectCard = ({ project, index }: { project: Project; index: number }) => {
+const ProjectCard = ({ project, index, onVideoOpen }: { project: Project; index: number; onVideoOpen: (url: string) => void }) => {
   const { ref, isInView } = useInView({ threshold: 0.1 });
 
   return (
@@ -129,14 +131,18 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
         </div>
 
         {/* Action buttons */}
-        {project.videoUrl && (
-            <video
-              src={project.videoUrl}
-              controls
-              className="w-full rounded-xl mt-4 border border-border/50"
-            />
-          )}
         <div className="flex items-center gap-3 pt-4">
+          {project.videoUrl && (
+            <Button
+              variant="outline"
+              size="sm"
+              className="border-primary/30 hover:bg-primary/10"
+              onClick={() => onVideoOpen(project.videoUrl!)}
+            >
+              <Play className="w-4 h-4 mr-2" />
+              View Demo
+            </Button>
+          )}
           {project.githubUrl && (
             <Button variant="outline" size="sm" className="border-primary/30 hover:bg-primary/10" asChild>
               <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
@@ -161,6 +167,7 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
 
 const ProjectsSection = () => {
   const { ref, isInView } = useInView({ threshold: 0.05 });
+  const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
 
   return (
     <section id="projects" className="py-24 relative">
@@ -191,11 +198,21 @@ const ProjectsSection = () => {
           {/* Projects grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {projects.map((project, index) => (
-              <ProjectCard key={project.title} project={project} index={index} />
+              <ProjectCard key={project.title} project={project} index={index} onVideoOpen={(url) => setSelectedVideo(url)} />
             ))}
           </div>
         </div>
       </div>
+
+      {/* Video Dialog */}
+      <Dialog open={!!selectedVideo} onOpenChange={(open) => !open && setSelectedVideo(null)}>
+        <DialogContent className="max-w-3xl p-2 sm:p-4">
+          <DialogTitle className="sr-only">Video Demo</DialogTitle>
+          {selectedVideo && (
+            <video src={selectedVideo} controls autoPlay className="w-full rounded-lg" />
+          )}
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };
