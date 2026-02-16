@@ -1,16 +1,12 @@
-import { ArrowDown, Download, MapPin } from 'lucide-react';
+import { ArrowRight, Download, MapPin } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 
 const HeroSection = () => {
-  const scrollToProjects = () => {
-    const element = document.querySelector('#projects');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  const navigate = useNavigate();
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 sm:pt-20">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 sm:pt-20">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-blob" />
@@ -56,22 +52,20 @@ const HeroSection = () => {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-up animation-delay-800">
             <Button
               size="lg"
-              onClick={scrollToProjects}
+              onClick={() => navigate('/projects')}
               className="group bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-primary-foreground font-semibold px-8 py-6 text-lg rounded-xl glow-pink transition-all duration-300"
             >
-              Get Started
-              <ArrowDown className="ml-2 w-5 h-5 group-hover:translate-y-1 transition-transform" />
+              View My Work
+              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Button>
             <Button
               size="lg"
               variant="outline"
               className="border-primary/50 hover:bg-primary/10 hover:border-primary px-8 py-6 text-lg rounded-xl transition-all duration-300"
-              asChild
+              onClick={() => navigate('/contact')}
             >
-              <a href="#contact">
-                <Download className="mr-2 w-5 h-5" />
-                Get in Touch
-              </a>
+              <Download className="mr-2 w-5 h-5" />
+              Get in Touch
             </Button>
           </div>
 
@@ -89,12 +83,7 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 rounded-full border-2 border-muted-foreground/30 flex items-start justify-center p-2">
-          <div className="w-1 h-2 rounded-full bg-primary animate-pulse" />
-        </div>
-      </div>
+      {/* Scroll indicator removed - now using page navigation */}
     </section>
   );
 };
