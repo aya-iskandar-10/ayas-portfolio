@@ -206,10 +206,10 @@ const ProjectsSection = () => {
 
       {/* Video Dialog */}
       <Dialog open={!!selectedVideo} onOpenChange={(open) => !open && setSelectedVideo(null)}>
-        <DialogContent className="max-w-3xl p-2 sm:p-4">
+        <DialogContent className="max-w-[95vw] max-h-[90vh] w-fit p-2 sm:p-4 flex items-center justify-center bg-background/95 backdrop-blur-sm">
           <DialogTitle className="sr-only">Video Demo</DialogTitle>
           {selectedVideo && (
-            <video src={selectedVideo} controls autoPlay className="w-full rounded-lg" />
+            <video src={selectedVideo} controls autoPlay className="max-w-full max-h-[85vh] rounded-lg object-contain" />
           )}
         </DialogContent>
       </Dialog>
