@@ -93,15 +93,14 @@ const ProjectCard = ({ project, index, onVideoOpen }: { project: Project; index:
       style={{ transitionDelay: `${index * 100}ms` }}
     >
       {project.isFeatured && (
-        <div className="absolute top-4 right-4 z-10 px-3 py-1 rounded-full bg-gradient-to-r from-primary to-secondary text-xs font-medium text-primary-foreground">
-          Featured Project
+        <div className="relative z-10 mx-4 mt-4 w-fit px-3 py-1 rounded-full bg-gradient-to-r from-primary to-secondary text-xs font-medium text-primary-foreground">
+          ⭐ Featured Project
         </div>
       )}
 
-
       {/* Content */}
       <div className="p-6 space-y-4">
-        <h4 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
+        <h4 className="text-xl sm:text-2xl font-bold text-foreground group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-secondary transition-all duration-300">
           {project.title}
         </h4>
         <p className="text-muted-foreground text-sm leading-relaxed">
@@ -131,12 +130,11 @@ const ProjectCard = ({ project, index, onVideoOpen }: { project: Project; index:
         </div>
 
         {/* Action buttons */}
-        <div className="flex items-center gap-3 pt-4">
+        <div className="flex flex-wrap items-center gap-3 pt-4">
           {project.videoUrl && (
             <Button
-              variant="outline"
               size="sm"
-              className="border-primary/30 hover:bg-primary/10"
+              className="bg-gradient-to-r from-primary to-secondary text-primary-foreground hover:opacity-90 shadow-md shadow-primary/20 transition-all duration-300"
               onClick={() => onVideoOpen(project.videoUrl!)}
             >
               <Play className="w-4 h-4 mr-2" />
@@ -144,7 +142,7 @@ const ProjectCard = ({ project, index, onVideoOpen }: { project: Project; index:
             </Button>
           )}
           {project.githubUrl && (
-            <Button variant="outline" size="sm" className="border-primary/30 hover:bg-primary/10" asChild>
+            <Button variant="outline" size="sm" className="border-primary/30 hover:bg-primary/10 hover:border-primary/60 transition-all duration-300" asChild>
               <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
                 <Github className="w-4 h-4 mr-2" />
                 Code
@@ -152,7 +150,7 @@ const ProjectCard = ({ project, index, onVideoOpen }: { project: Project; index:
             </Button>
           )}
           {project.liveUrl && (
-            <Button variant="outline" size="sm" className="border-primary/30 hover:bg-primary/10" asChild>
+            <Button variant="outline" size="sm" className="border-primary/30 hover:bg-primary/10 hover:border-primary/60 transition-all duration-300" asChild>
               <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
                 <ExternalLink className="w-4 h-4 mr-2" />
                 Live Demo
