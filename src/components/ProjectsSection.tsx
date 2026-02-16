@@ -41,7 +41,7 @@ const projects: Project[] = [
       'Clean UI/UX design',
     ],
     technologies: ['Flutter', 'Dart', 'SQLite', 'Speech-to-Text'],
-    videoUrl: voicecideo,
+   // videoUrl: voicecideo,
   },
   {
     title: 'Face Recognition App',
@@ -77,7 +77,6 @@ const projects: Project[] = [
       'Admin dashboard',
     ],
     technologies: ['ASP.NET Core MVC', 'C#', 'SQL Server', 'Bootstrap'],
-    videoUrl: ecommercevideo,
   },
 ];
 
