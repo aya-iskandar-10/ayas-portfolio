@@ -41,7 +41,6 @@ const projects: Project[] = [
       'Clean UI/UX design',
     ],
     technologies: ['Flutter', 'Dart', 'SQLite', 'Speech-to-Text'],
-    videoUrl: voicevideo,
   },
   {
     title: 'Face Recognition App',
@@ -65,7 +64,7 @@ const projects: Project[] = [
       'Clean interface design',
     ],
     technologies: ['Flutter', 'Firebase', 'Dart'],
-    videoUrl: edtechdemo,
+    
   },
   {
     title: 'E-commerce Website',
@@ -77,7 +76,6 @@ const projects: Project[] = [
       'Admin dashboard',
     ],
     technologies: ['ASP.NET Core MVC', 'C#', 'SQL Server', 'Bootstrap'],
-    videoUrl: ecommercevideo,
   },
 ];
 
