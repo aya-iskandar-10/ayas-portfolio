@@ -76,7 +76,7 @@ const projects: Project[] = [
       'Admin dashboard',
     ],
     technologies: ['ASP.NET Core MVC', 'C#', 'SQL Server', 'Bootstrap'],
-    videoUrl: ecommercedemo,
+    videoUrl: ecommercevideo,
   },
 ];
 
