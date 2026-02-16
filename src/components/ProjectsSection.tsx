@@ -64,7 +64,7 @@ const projects: Project[] = [
       'Clean interface design',
     ],
     technologies: ['Flutter', 'Firebase', 'Dart'],
-    
+    videoUrl : edtechdemo,
   },
   {
     title: 'E-commerce Website',
