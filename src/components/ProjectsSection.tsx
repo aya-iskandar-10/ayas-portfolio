@@ -41,7 +41,7 @@ const projects: Project[] = [
       'Clean UI/UX design',
     ],
     technologies: ['Flutter', 'Dart', 'SQLite', 'Speech-to-Text'],
-   // videoUrl: voicecideo,
+    videoUrl: voicecideo,
   },
   {
     title: 'Face Recognition App',
