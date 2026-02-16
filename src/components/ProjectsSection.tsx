@@ -1,8 +1,6 @@
-import { useState } from 'react';
 import { Play, Github, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useInView } from '@/hooks/useInView';
-import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import facevideo from '@/assets/videos/face-recognition-demo.mp4';
 import ecommercevideo from '@/assets/videos/ecommerce-demo.mp4';
 import voicevideo from '@/assets/videos/audio-recording-demo.mp4';
@@ -43,6 +41,7 @@ const projects: Project[] = [
       'Clean UI/UX design',
     ],
     technologies: ['Flutter', 'Dart', 'SQLite', 'Speech-to-Text'],
+    videoUrl: voicevideo,
   },
   {
     title: 'Face Recognition App',
@@ -66,7 +65,7 @@ const projects: Project[] = [
       'Clean interface design',
     ],
     technologies: ['Flutter', 'Firebase', 'Dart'],
-    
+    videoUrl: edtechdemo,
   },
   {
     title: 'E-commerce Website',
@@ -78,10 +77,11 @@ const projects: Project[] = [
       'Admin dashboard',
     ],
     technologies: ['ASP.NET Core MVC', 'C#', 'SQL Server', 'Bootstrap'],
+    videoUrl: ecommercevideo,
   },
 ];
 
-const ProjectCard = ({ project, index, onVideoOpen }: { project: Project; index: number; onVideoOpen: (url: string) => void }) => {
+const ProjectCard = ({ project, index }: { project: Project; index: number }) => {
   const { ref, isInView } = useInView({ threshold: 0.1 });
 
   return (
@@ -93,14 +93,15 @@ const ProjectCard = ({ project, index, onVideoOpen }: { project: Project; index:
       style={{ transitionDelay: `${index * 100}ms` }}
     >
       {project.isFeatured && (
-        <div className="relative z-10 mx-4 mt-4 w-fit px-3 py-1 rounded-full bg-gradient-to-r from-primary to-secondary text-xs font-medium text-primary-foreground">
-          ⭐ Featured Project
+        <div className="absolute top-4 right-4 z-10 px-3 py-1 rounded-full bg-gradient-to-r from-primary to-secondary text-xs font-medium text-primary-foreground">
+          Featured Project
         </div>
       )}
 
+
       {/* Content */}
       <div className="p-6 space-y-4">
-        <h4 className="text-xl sm:text-2xl font-bold text-foreground group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-secondary transition-all duration-300">
+        <h4 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
           {project.title}
         </h4>
         <p className="text-muted-foreground text-sm leading-relaxed">
@@ -130,19 +131,16 @@ const ProjectCard = ({ project, index, onVideoOpen }: { project: Project; index:
         </div>
 
         {/* Action buttons */}
-        <div className="flex flex-wrap items-center gap-3 pt-4">
-          {project.videoUrl && (
-            <Button
-              size="sm"
-              className="bg-gradient-to-r from-primary to-secondary text-primary-foreground hover:opacity-90 shadow-md shadow-primary/20 transition-all duration-300"
-              onClick={() => onVideoOpen(project.videoUrl!)}
-            >
-              <Play className="w-4 h-4 mr-2" />
-              View Demo
-            </Button>
+        {project.videoUrl && (
+            <video
+              src={project.videoUrl}
+              controls
+              className="w-full rounded-xl mt-4 border border-border/50"
+            />
           )}
+        <div className="flex items-center gap-3 pt-4">
           {project.githubUrl && (
-            <Button variant="outline" size="sm" className="border-primary/30 hover:bg-primary/10 hover:border-primary/60 transition-all duration-300" asChild>
+            <Button variant="outline" size="sm" className="border-primary/30 hover:bg-primary/10" asChild>
               <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
                 <Github className="w-4 h-4 mr-2" />
                 Code
@@ -150,7 +148,7 @@ const ProjectCard = ({ project, index, onVideoOpen }: { project: Project; index:
             </Button>
           )}
           {project.liveUrl && (
-            <Button variant="outline" size="sm" className="border-primary/30 hover:bg-primary/10 hover:border-primary/60 transition-all duration-300" asChild>
+            <Button variant="outline" size="sm" className="border-primary/30 hover:bg-primary/10" asChild>
               <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
                 <ExternalLink className="w-4 h-4 mr-2" />
                 Live Demo
@@ -165,7 +163,6 @@ const ProjectCard = ({ project, index, onVideoOpen }: { project: Project; index:
 
 const ProjectsSection = () => {
   const { ref, isInView } = useInView({ threshold: 0.05 });
-  const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
 
   return (
     <section id="projects" className="py-24 relative">
@@ -196,21 +193,11 @@ const ProjectsSection = () => {
           {/* Projects grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {projects.map((project, index) => (
-              <ProjectCard key={project.title} project={project} index={index} onVideoOpen={(url) => setSelectedVideo(url)} />
+              <ProjectCard key={project.title} project={project} index={index} />
             ))}
           </div>
         </div>
       </div>
-
-      {/* Video Dialog */}
-      <Dialog open={!!selectedVideo} onOpenChange={(open) => !open && setSelectedVideo(null)}>
-        <DialogContent className="max-w-[95vw] max-h-[90vh] w-fit p-2 sm:p-4 flex items-center justify-center bg-background/95 backdrop-blur-sm">
-          <DialogTitle className="sr-only">Video Demo</DialogTitle>
-          {selectedVideo && (
-            <video src={selectedVideo} controls autoPlay className="max-w-full max-h-[85vh] rounded-lg object-contain" />
-          )}
-        </DialogContent>
-      </Dialog>
     </section>
   );
 };
