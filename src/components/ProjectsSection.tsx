@@ -2,8 +2,8 @@ import { Play, Github, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useInView } from '@/hooks/useInView';
 import facevideo from '@/assets/videos/face-recognition-demo.mp4';
-import ecommercevideo from '@/assets/videos/ecommerce-demo.mp4';
-import voicevideo from '@/assets/videos/audio-recording-demo.mp4';
+import ecommercevideo from '@/assets/videos/e-commerce-demo.mp4';
+import voicevideo from '@/assets/videos/voice-transcription-demo.mp4';
 import edtechdemo from '@/assets/videos/edtech-demo.mp4';
 
 interface Project {
