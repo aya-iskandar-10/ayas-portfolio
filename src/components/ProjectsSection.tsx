@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import { Play, Github, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { useInView } from '@/hooks/useInView';
 import facevideo from '@/assets/videos/face-recognition-demo.mp4';
 import ecommercevideo from '@/assets/videos/e-commerce-demo.mp4';
@@ -83,6 +85,7 @@ const projects: Project[] = [
 
 const ProjectCard = ({ project, index }: { project: Project; index: number }) => {
   const { ref, isInView } = useInView({ threshold: 0.1 });
+  const [showVideo, setShowVideo] = useState(false);
 
   return (
     <div
@@ -131,14 +134,17 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
         </div>
 
         {/* Action buttons */}
-        {project.videoUrl && (
-            <video
-              src={project.videoUrl}
-              controls
-              className="w-full rounded-xl mt-4 border border-border/50"
-            />
-          )}
         <div className="flex items-center gap-3 pt-4">
+          {project.videoUrl && (
+            <Button
+              size="sm"
+              className="bg-gradient-to-r from-primary to-secondary text-primary-foreground shadow-lg hover:shadow-primary/25 hover:scale-105 transition-all duration-300"
+              onClick={() => setShowVideo(true)}
+            >
+              <Play className="w-4 h-4 mr-2" />
+              View Demo
+            </Button>
+          )}
           {project.githubUrl && (
             <Button variant="outline" size="sm" className="border-primary/30 hover:bg-primary/10" asChild>
               <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
@@ -157,6 +163,21 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
           )}
         </div>
       </div>
+
+      {/* Video Dialog */}
+      {project.videoUrl && (
+        <Dialog open={showVideo} onOpenChange={setShowVideo}>
+          <DialogContent className="max-w-[95vw] max-h-[90vh] w-fit p-2 bg-background/95 backdrop-blur-sm border-border/50">
+            <DialogTitle className="sr-only">{project.title} Demo</DialogTitle>
+            <video
+              src={project.videoUrl}
+              controls
+              autoPlay
+              className="max-h-[85vh] max-w-[90vw] rounded-lg object-contain"
+            />
+          </DialogContent>
+        </Dialog>
+      )}
     </div>
   );
 };
